@@ -21,5 +21,5 @@ struct Args
 {
 	std::wstring name;
 	size_t number = 0;
-	Gamble* gamblePointer;
+	Gamble* gamble;
 };

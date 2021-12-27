@@ -4,7 +4,7 @@
 DWORD __stdcall Player(LPVOID parameter)
 {
 	Args args = *static_cast<Args*>(parameter);
-	args.gamblePointer->MakePrediction(args.name, args.number);
+	args.gamble->MakePrediction(args.name, args.number);
 	return 0;
 }
 
