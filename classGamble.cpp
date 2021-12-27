@@ -3,23 +3,9 @@
 Gamble::Gamble()
 {
     InitializeCriticalSection(&m_criticalSection);
-    //bool isPrime = false;
     size_t num;
     srand(time(0));
     num = 2 + rand() % 100;
-    /*while (!isPrime)
-    {
-        srand(time(0));
-        num = 2 + rand() % 100;
-        for (size_t i = 2; i < num; ++i)
-        {
-            if (num % i == 0)
-            {
-                isPrime = false;
-            }
-        }
-        isPrime = true;
-    }*/
     m_number = num;
 }
 
