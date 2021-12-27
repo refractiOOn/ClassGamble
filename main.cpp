@@ -1,33 +1,34 @@
 #include "classGamble.h"
 #include "classHandleWrapper.h"
 
-Gamble* g_gamble = new Gamble();
-
 DWORD __stdcall Player(LPVOID parameter)
 {
-	Prediction prediction = *static_cast<Prediction*>(parameter);
-	g_gamble->MakePrediction(prediction.name, prediction.number);
+	Args args = *static_cast<Args*>(parameter);
+	args.gamblePointer->MakePrediction(args.name, args.number);
 	return 0;
 }
 
 DWORD __stdcall Bookmaker(LPVOID parameter)
 {
+	Gamble* gamble = static_cast<Gamble*>(parameter);
 	while (true)
 	{
-		std::cout << "Enter name and number:" << std::endl;
-		Prediction prediction;
-		std::wcin >> prediction.name >> prediction.number;
-		HandleWrapper player = CreateThread(0, 0, Player, &prediction, 0, 0);
+		std::cout << "Enter player name and his prediction:" << std::endl;
+		std::wstring name;
+		size_t number;
+		std::wcin >> name >> number;
+		Args args = { name, number, gamble };
+		HandleWrapper player = CreateThread(0, 0, Player, &args, 0, 0);
 		WaitForSingleObject(player.Get(), INFINITE);
 	}
 }
 
 int main()
 {
-	HandleWrapper bookmaker = CreateThread(0, 0, Bookmaker, 0, 0, 0);
+	Gamble gamble;
+	HandleWrapper bookmaker = CreateThread(0, 0, Bookmaker, &gamble, 0, 0);
 	WaitForSingleObject(bookmaker.Get(), 30000);
-	std::pair<size_t, std::wstring> winner = g_gamble->DetermineWinner();
+	std::pair<size_t, std::wstring> winner = gamble.DetermineWinner();
 	std::wcout << winner.second << " wins with number " << winner.first << std::endl;
-	std::wcout << "Hidden number was " << g_gamble->GetNumber() << std::endl;
-	g_gamble->~Gamble();
+	std::wcout << "Hidden number was " << gamble.GetNumber() << std::endl;
 }

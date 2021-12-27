@@ -3,12 +3,6 @@
 #include <map>
 #include <windows.h>
 
-struct Prediction
-{
-	std::wstring name;
-	size_t number = 0;
-};
-
 class Gamble
 {
 public:
@@ -21,4 +15,11 @@ private:
 	std::map<size_t, std::wstring> m_map;
 	size_t m_number = 0;
 	CRITICAL_SECTION m_criticalSection;
+};
+
+struct Args
+{
+	std::wstring name;
+	size_t number = 0;
+	Gamble* gamblePointer;
 };
