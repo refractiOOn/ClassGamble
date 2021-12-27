@@ -1,0 +1,5 @@
+﻿  classGamble.cpp
+C:\Users\sotni\source\repos\ClassGamble\classGamble.cpp(8,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  main.cpp
+  Generating Code...
+  ClassGamble.vcxproj -> C:\Users\sotni\source\repos\ClassGamble\x64\Debug\ClassGamble.exe
